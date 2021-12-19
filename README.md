@@ -45,3 +45,20 @@
 >Más que imaginar un fragmento de código gigantesco, es mejor imaginar y empezar a pensar que debemos programar en pequeños trozos - Anahí Salgado Díaz de la Vega
 
 Las clases son precisamente las que provocan la módularidad ya que cada módulo es una clase y cada clase irá en un archivo diferente (Esa es la idea)
+
+---
+
+## DRY: *Don´t repeat yourself*
+
+Es una filosofía que promueve:
+
+- Promueve la reducción de duplicación
+-Toda pieza de información **nunca debería ser duplicada** debido a que la duplicación **incrementa la dificultad** en los cambios y evolución
+
+Porque esto dificulta la manutención del código y la evolución del código, será más dificil de leer y dificil de incluir nuevos módulos.
+
+---
+
+## Herencia
+
+*Abstracción muy general para crear clases a partir de otras clases, es importante para mantener el principio de DRY*

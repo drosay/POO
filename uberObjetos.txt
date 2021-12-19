@@ -1,0 +1,72 @@
+User {
+    id,
+    name,
+    document,
+    email,
+    password,
+}
+
+driver{
+    id,
+    name,
+    document,
+    email,
+    password
+}
+
+route{
+    id,
+    start[],
+    end[],
+}
+
+uberX{
+    id,
+    license,
+    driver,
+    passengers,
+    model,
+    brand,
+}
+
+uberPool{
+    id,
+    license,
+    driver,
+    passengers,
+    model,
+    brand,
+}
+
+uberBlack{
+    id,
+    license,
+    driver,
+    passengers,
+    typeCarAccepted[],
+    seatMaterial[],
+}
+uberVan{
+    id,
+    license,
+    driver,
+    passengers,
+    typeCarAccepted[],
+    seatMaterial[],
+}
+
+card{
+    id,
+    cardNumber,
+    cvv,
+    date,
+    name,
+}
+paypal{
+    id,
+    email
+}
+
+cash{
+    id
+}
