@@ -62,3 +62,11 @@ Porque esto dificulta la manutención del código y la evolución del código, s
 ## Herencia
 
 *Abstracción muy general para crear clases a partir de otras clases, es importante para mantener el principio de DRY*
+
+- La herencia nos permite generalizar las clases y crear subclases que hereden los atributos y comportamientos de la clase mayor, así no redundamos código
+- A la clase de la cual se hereda se le llama Súperclase y las que heredan se llaman subclases, o clase padre y clase hijo respectivamente
+- Se identifica analizando varias clases con atributos y comportamientos similares
+
+*Cuando detecto características y comportamientos similares debo realizar una abstracción*
+
+Otra forma de analizar herencia es partiendo de los elementos en común, la lógica de negocio puede decirte que algunos elementos se deben agrupar en una clase más general . . .
