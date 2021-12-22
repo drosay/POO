@@ -1,3 +1,7 @@
-function Payment(id){
-    this.id = id;
+class Payment{
+    constructor(){
+        this.id = id;
+    }
 }
+
+export {Payment};
