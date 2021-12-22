@@ -73,7 +73,9 @@ Excelente! ya con la clase Account podemos hacer una instancia de clase y crear 
 ``` Java
     Account cuenta1 = new Account();
 ```
-Utilizamos **Account cuenta1** para declarar la variable cuenta1 de tipo Account y luego la inicializamos como una instancia de la clase Account con **new Account();**.
+Utilizamos **Account cuenta1** para declarar el objeto cuenta1 de tipo Account y luego lo inicializamos en memoria como una instancia de la clase Account con **new Account();**.
+
+> **Esto en escencia es una objeto, ya que un objeto es la instancia de una clase.**
 
 De esta forma podemos utilizar todos sus atributos y propiedades, por ejemplo si queremos que el **nombre de la cuenta1 sea "Dylan"** y el **documento sea "2345ABC"** podemos hacerlo de esta forma:
 
@@ -100,6 +102,45 @@ y si queremos utilizar el método de **hacerLogin()** ó imprimir alguno de sus 
 ```
 
 >*Como este podemos crear cuantos objetos querramos solo valiendonos creando nuevas instancias con nombres diferentes como la de cuenta1*
+
+---
+
+## Constructor
+
+Como vimos en el ejemplo anterior creamos el objeto **cuenta1** como instancia de la clase **Account**, y aquí hay algo que aclarar, vimos que inicializamos el objeto en memoria con la linea **new Account();**, pues bueno a esto lo llamamos método constructor del objeto.
+
+Si nos damos cuenta utilizamos unos parensetis **"()"**, estos parentesis nos indican que es un método, una acción; en este caso estos métodos se escriben en mayusculas y tiene el mismo nombre de la clase **Account();**, entonces el método constructor cumple las siguientes funciones:
+
+- Da un estado inicial al objeto
+- Te espesifica los parametros mínimos para que el objeto pueda construirse
+
+es decir, cuando invocamos el método constructor este crea el estado inicial del objeto en memoria, y los parametros que este te pida son los mínimos necesarios para que el objeto pueda vivir, sin estos no te permite instanciar tu objeto.
+
+En el caso anterior nuestro método no esperaba ningún parametro porque era el método constructor por defecto que te crea internamente Java de esta forma para la clase account:
+
+```Java
+    public Account(){
+
+    }
+```
+
+Pero, si queremos sobreescribir nuestro método constructor esta vez espesificandole parametros podemos hacerlo de esta manera:
+
+```Java
+    public Account(String name, String document){
+        this.name = name;
+        this.document = document;
+    }
+```
+
+Excelente! de esta manera cuando debamos instanciar un objeto de la clase Account si o si debemos hacerlo con los parametros que espera, en este caso el nombre y el documento:
+
+```Java
+
+    Account cuenta1 = new Account("Dylan","2345ABC");
+
+```
+> A partir de aquí podemos modificar sus otros atributos y usar sus métodos, pero esto es lo mínimo que necesita para crearse, de otro modo nos dará un error.
 
 ---
 
@@ -132,10 +173,6 @@ tenemos el código dividido en fragmentos, cada módulo por separado y cada arch
 Es una filosofía que promueve que toda pieza de información **nunca debería ser duplicada** debido a que la duplicación **incrementa la dificultad** en los cambios y evolución.
 
 *Porque esto dificulta la manutención del código y la evolución del código, será más dificil de leer y dificil de incluir nuevos módulos.*
-
----
-
-## Constructor
 
 ---
 
