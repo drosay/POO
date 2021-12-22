@@ -1,5 +1,11 @@
 # Programación oriendada a objetos *(conceptos básicos)*
 
+## Concepto
+
+(despues lo coloco pues)
+
+---
+
 ## Objeto
 
 - Los objetos siempre van a tener comportamientos y propiedades (o atributos).
