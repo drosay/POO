@@ -2,7 +2,33 @@
 
 ## Concepto
 
-(despues lo coloco pues)
+La programación orientada a objetos, con las siglas POO o en ingles OOP (Object Oriented Programming), básicamente viene de una forma de pensar de digamos la orientación a objeto y pues es un paradigma de programación que si no sabes que es esto es una teoría que nos da un modelo para resolver un problema.
+
+Surge de los problemas que tenemos y necesitamos plasmar en código, necesitamos observar los problemas, analizarlos y visualizarlos en forma de objetos para luego codificarlo en una solución.
+
+**BIEN!...** la programación orientada a objetos se compone de cuatro elementos fundamentales:
+
+- Clases
+- Propiedades
+- Métodos
+- Objetos
+
+*Eh. . . vale, osea como te explico. . .*
+
+La programación orientada a objetos va a tener **Clases** y ellas se van a componer de **Propiedades** y a la vez, van a tener **Métodos** y todas estas en conjunto van a dar un **Objeto**. . . bueno, igual lo vamos a ver a detalle más adelante.
+
+*Sigamos*
+
+Además de estos 4 pilares vamos a ver conceptos importantes como:
+
+- Abstracción
+- Herencia
+- Encapsulamiento
+- Polimorfismo
+
+y si, suenan un poco intimidantes, pero son más sencillas de lo que parecen, por ahora: 
+
+> Palabras más, palabra menos, la programación orientada a objetos es una forma de pensar para resolver problemas que tiene esos 4 pilares que vimos y que tiene esos 4 elementos y. . . y. . ., y ya. Sigamos. . .
 
 ---
 
