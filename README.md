@@ -56,7 +56,6 @@ Imaginemos que hacer un analisis de la cuenta de un usuario, en este caso sabemo
     hacerLogin(){ //El comportamiento de iniciar sesion
         System.out.print("Ingrese!");
     }
-
 ```
 >*Como podemos ver a partir de la idea de la cuenta de un usuario podemos extraer ciertos atributos y métodos relacionados a ella.*
 ---
@@ -84,19 +83,19 @@ Es por esto que hacemos la abstracción del objeto a una forma más general en l
 
 *En Java podemos definir la clase Account de este modo*
 ``` Java
-class Account {
+    class Account {
 
-    Integer id;
-    String name;
-    String document;
-    String email;
-    String password;
+        Integer id;
+        String name;
+        String document;
+        String email;
+        String password;
 
-    public void hacerLogin(){
-        System.out.print("Ingrese!");
+        public void hacerLogin(){
+            System.out.print("Ingrese!");
+        }
+        
     }
-    
-}
 ```
 Excelente! ya con la clase Account podemos hacer una instancia de clase y crear nuestro primer objeto a partir de una clase.
 
@@ -112,16 +111,13 @@ Utilizamos **Account cuenta1** para declarar el objeto cuenta1 de tipo Account y
 De esta forma podemos utilizar todos sus atributos y propiedades, por ejemplo si queremos que el **nombre de la cuenta1 sea "Dylan"** y el **documento sea "2345ABC"** podemos hacerlo de esta forma:
 
 ```Java
-
     cuenta1.name = "Dylan";
     cuenta1.document = "2345ABC";
-
 ```
 
 y si queremos utilizar el método de **hacerLogin()** ó imprimir alguno de sus atributos podemos hacer esto:
 
 ```Java
-
     cuenta1.hacerLogin(); //Invocamos el método de login
     System.out.println("\nSoy el usuario: " + cuenta1.name + " con el documento: " + cuenta1.document);
 
@@ -130,7 +126,6 @@ y si queremos utilizar el método de **hacerLogin()** ó imprimir alguno de sus 
         Ingrese!
         Soy el usuario: Dylan con el documento: 2345ABC
     */
-
 ```
 
 >*Como este podemos crear cuantos objetos querramos solo valiendonos creando nuevas instancias con nombres diferentes como la de cuenta1*
@@ -208,16 +203,134 @@ Es una filosofía que promueve que toda pieza de información **nunca debería s
 
 ---
 
+*Cuando detecto características y comportamientos similares debo realizar una abstracción*
+
+Vamos a verlo con un ejemplo. . ., el mismo ejemplo de  **Account**:
+
+- Recordemos que tenemos la clase *Account* y que esta tiene sus caracteristicas y comportamientos:
+
+```Java
+    class Account {
+
+        Integer id;
+        String name;
+        String document;
+        String email;
+        String password;
+
+        public void hacerLogin(){
+            System.out.print("Ingrese!");
+        }
+        
+    }
+```
+bien entonces, que pasa si necesitamos crear algunos objetos similares que utilicen esas mismas caracteristicas y comportamientos, objetos que sean **Accounts (cuentas)** pero que además de ser cuentas tengan contextos diferentes como por ejemplo la cuenta de un **usuario** ó la cuenta de un **conductor**.
+
+Tendríamos que escribir todos esos comportamientos y caracteristicas de nuevo ¿cierto?, pero eso es muy tedioso y es redundante, eso viola el principio de DRY(Dont Repeat Yourself).
+
+Por esto existe la **HERENCIA**.
+
+
 ## Herencia
 
-*Abstracción muy general para crear clases a partir de otras clases, es importante para mantener el principio de DRY*
+*Esta es una abstracción muy general para crear clases a partir de otras clases y es importante para mantener el principio de DRY*
 
 - La herencia nos permite generalizar las clases y crear subclases que hereden los atributos y comportamientos de la clase mayor, así no redundamos código.
 - A la clase de la cual se hereda se le llama Súperclase y las que heredan se llaman subclases, o clase padre y clase hijo respectivamente.
 - Se identifica analizando varias clases con atributos y comportamientos similares.
 
-*Cuando detecto características y comportamientos similares debo realizar una abstracción*
+**ENTONCES** pues como habíamos planteado antes, tenemos la clase **Account** y queremos crear una clase para **usuario** y otra para **conductor** que tengan esas mismas propiedades, bien entonces nos valemos de la herencia.
 
-Otra forma de analizar herencia es partiendo de los elementos en común, la lógica de negocio puede decirte que algunos elementos se deben agrupar en una clase más general . . .
+En Java utilizamos la palabra reservada **extends** para representar herencia en código quedaría así:
+
+```Java
+    class User extends Account{ //Clase USUARIO extiende de ACCOUNT
+
+    }
+```
+```Java
+    class Driver extends Account{ //Clase CONDUCTOR extiende de ACCOUNT
+
+    }
+```
+
+ya con esto, estamos diciendo que **User** y **Driver** son clases hijas de **Account** y por lo tanto deberían poder utilizar sus propiedades y métodos, pero. . ., nos valta algo importante. . . a ver te explico, recuerda que hablamos antes de los **constructores** y que estos lo que hacían era dar un estado inicial del objeto.
+
+Bien pues estas dos clases que heredan necesitan tambien un constructor y que este constructor instancie de alguna manera la clase padre para poder utilizar todo lo que esta nos está permitiendo heredar, para esto utilizamos el método ***super*** dentro de nuestro constructor, de esta manera:
+
+```Java
+    class User extends Account{
+        public User(String name, String document){
+            super(name, document);//método super que instancia la clase padre
+        }
+    }
+```
+
+si nos damos cuenta el método ***super*** lleva dos parametros, el **name** y el **document** esto es porque la clase **Account** para vivir necesita esos dos parametros y por tanto extender una clase de otra necesitamos pasarle esos parametros tambien.
+
+Hagamoslo tambien con la clase **Driver**
+
+```Java
+    class Driver extends Account{
+        public Driver(String name, String document){
+            super(name, document);
+        }
+    }
+```
+
+**BIEN!** ya con esto tenemos dos clases nuevas **User** y **Driver** que pueden usar todas las caracteristicas y comportamientos que utiliza la clase **Account**, dos clases que comparten similitudes porque son de una misma familia pero que en esencia son diferentes.
+
+***Eso es la herencia.***
+
+Vamos a analizar la herencia desde otro punto de vista, recuerda que al principio hablamos de contexto para definir objetos y es que la lógica de negocio puede decirte que algunos elementos se deben agrupar en una clase más general . . .
+
+Imaginemos que queremos implementar las clases en un modelo de pagos, que aceptemos distintos **tipos de pago**, sabemos que pueden pagarnos con **tarjeta**, con **paypal**, y hasta con **efectivo** pero, no podemos agrupar todo eso en una clase general sencillamente porque cada una de ellas tiene caracteristicas y comportamientos muy diferentes.
+
+Sin embargo hay que agruparlas puesto que sabemos que todos son métodos de pago y pertenecen a una misma familia, bien, vamos a abordar este caso.
+
+**NO TE LO DIJE** pero por más que tengan caracteristicas y comportamientos distintos siempre hay algo que tienen en común estas tres clases, esto es el **id**, un identificador único que diferencia un pago de otro, bien creemos entonces una clase muy general de la que extiendan todas:
+
+```Java
+    class Payment{
+        Integer id;
+        public Payment(Integer id){
+            this.id = id;
+        }
+    }
+```
+
+bien, a partir de aquí tenemos una clase **Payment** que se refiere al pago y que tiene como caracteristica un único identificador que es el **id** y que diferencia un pago del otro, entonces podemos extender de ella para crear diferentes métodos de pago con caracteristicas diferentes:
+
+```Java
+    class Paypal{//METODO DE PAGO POR PAYPAL
+        String email;  
+        public Payment(Integer id,String email){
+            super(id);
+            this.email = email;
+        }
+    }
+```
+```Java
+    class Card{//METODO DE PAGO POR TARJETA
+        Integer cardNumber;
+        String date;
+        String cvv;
+        public Card(Integer id,Integer cardNumber,String date,String cvv){
+            super(id);
+            this.cardNumber = cardNumber;
+            this.date = date;
+            this.cvv = cvv;
+        }
+    }
+```
+```Java
+    class Cash{//METODO DE PAGO EN EFECTIVO  
+        public Cash(Integer id){
+            super(id);
+        }
+    }
+```
+
+**LO VES??** tres métodos de pago muy diferentes pero que son de la misma familia y que debido eso hay que agruparlos en una clase más general!
 
 ---
