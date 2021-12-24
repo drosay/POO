@@ -189,7 +189,7 @@ Excelente! de esta manera cuando debamos instanciar un objeto de la clase Accoun
 
 Las clases son precisamente las que provocan la módularidad ya que cada módulo es una clase y cada clase irá en un archivo diferente así como en la siguiente imagen
 
-<img src="https://i.postimg.cc/5yPgzBNY/modulos.png" width="300"/>
+<img src="https://i.postimg.cc/5yPgzBNY/modulos.png" title="modulos" alt="modulos"/>
 
 tenemos el código dividido en fragmentos, cada módulo por separado y cada archivo corresponde a una clase, cada una independiente (Esa es la idea).
 
@@ -278,11 +278,25 @@ Hagamoslo tambien con la clase **Driver**
     }
 ```
 
-**BIEN!** ya con esto tenemos dos clases nuevas **User** y **Driver** que pueden usar todas las caracteristicas y comportamientos que utiliza la clase **Account**, dos clases que comparten similitudes porque son de una misma familia pero que en esencia son diferentes.
+**BIEN!** ya con esto tenemos dos clases nuevas **User** y **Driver** que pueden usar todas las caracteristicas y comportamientos que utiliza la clase **Account**
+
+```Java
+    Driver conductor1 = new Driver("Dylan","2345ABC");
+    conductor1.id = 236;
+    conductor1.hacerLogin();//Invocamos el método login
+    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.document + " y con el id: " + conductor1.id);
+
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el conductor: Dylan con el documento: 2345ABC y con el id: 236
+    */
+```
+como ves estámos utilizando las caracteristicas y comportamientos de **Account** desde una instancia de la clase **Driver**.
 
 ***Eso es la herencia.***
 
-Vamos a analizar la herencia desde otro punto de vista, recuerda que al principio hablamos de contexto para definir objetos y es que la lógica de negocio puede decirte que algunos elementos se deben agrupar en una clase más general . . .
+Bien ahora vamos a analizar la herencia desde otro punto de vista, recuerda que al principio hablamos de contexto para definir objetos y es que la lógica de negocio puede decirte que algunos elementos se deben agrupar en una clase más general . . .
 
 Imaginemos que queremos implementar las clases en un modelo de pagos, que aceptemos distintos **tipos de pago**, sabemos que pueden pagarnos con **tarjeta**, con **paypal**, y hasta con **efectivo** pero, no podemos agrupar todo eso en una clase general sencillamente porque cada una de ellas tiene caracteristicas y comportamientos muy diferentes.
 
@@ -334,3 +348,28 @@ bien, a partir de aquí tenemos una clase **Payment** que se refiere al pago y q
 **LO VES??** tres métodos de pago muy diferentes pero que son de la misma familia y que debido eso hay que agruparlos en una clase más general!
 
 ---
+
+## Encapsulamiento
+
+Como vimos en el ejemplo anterior de la superclase **Account** y la subclase **Driver**, pudimos modificar las caracteristicas y usar los comportamientos de la superclase desde la subclase ó clase hija y si te fijaste bien, modificamos el ***id*** del **conductor1** y lo imprimimos pero. . . crees que eso está bien? es decir, deberíamos poder modificar cosas tan delicadas como el identificador único de cada objeto desde ese objeto de la clase hija?. . .
+
+No crees que un perfecto ejemplo de eso es tu número de identificación en la vida real?, no puedes modificarlo aúnque quisieras cierto?, te define y es una caracteristica que posees, pero no puedes acceder a el y modificarlo como te plazca, **BUENO** así mismo es en este caso, el atributo ***id*** es una caracteristica heredada hacia **Driver** pero, este no debería poder modificarlo a sus anchas.
+
+Teniendo claro esto veamos el concepto de **Encapsulamiento**:
+
+El encapsulamiento es en esencia hacer que un dato sea inviolable, inalterable cuando se le asigne un modificador de acceso.
+
+- No se trata solo de ocultarlo, sinó de protegerlo.
+
+Pero, modificador de acceso? (Que es esa mier. . .), ya ok si haz sido un poco observador al definir los métodos constructores los definimos anteponiendoles la palabra **Public**, y bueno eso es un modificador de acceso, restringe el acceso a un determinado elemento, para que lo tengas más claro acá te explicamos cada uno de los modificadores de acceso
+
+<img src="https://i.postimg.cc/prPFtJQT/modificadores-de-acceso.png" alt="modificadores de acceso" title="modificadores de acceso"/>
+
+cada uno de ellos tiene un nivel de acceso a los datos:
+
+- **public** es el más permisivo y deja ser accedido desde cualquier parte de nuestro código, todas las clases pueden acceder a ellos.
+- **protected** es una capa un poco más estricta y permite solo ser accedido desde la clase, el paquete(que en java son como carpetas que permiten encapsular y ordenar el código) y en las subclases.
+- **default** solo nos deja ser accedido desde la clase y el paquete, es decir que las subclases no podrán acceder a ello.
+- **private** es el más reestrictivo y solo nos deja acceder desde la misma clase.
+
+con los modificadores de acceso podemos ocultar o proteger caracteristicas, comportamientos o incluso clases.
