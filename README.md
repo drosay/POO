@@ -282,14 +282,14 @@ Hagamoslo tambien con la clase **Driver**
 
 ```Java
     Driver conductor1 = new Driver("Dylan","2345ABC");
-    conductor1.id = 236;
+    conductor.document = "1234ZXC";
     conductor1.hacerLogin();//Invocamos el método login
-    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.document + " y con el id: " + conductor1.id);
+    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.document);
 
     /*
     EN LA SALIDA TENDRÍAMOS
         Ingrese!
-        Soy el conductor: Dylan con el documento: 2345ABC y con el id: 236
+        Soy el conductor: Dylan con el documento: 1234ZXC
     */
 ```
 como ves estámos utilizando las caracteristicas y comportamientos de **Account** desde una instancia de la clase **Driver**.
@@ -351,13 +351,13 @@ bien, a partir de aquí tenemos una clase **Payment** que se refiere al pago y q
 
 ## Encapsulamiento
 
-Como vimos en el ejemplo anterior de la superclase **Account** y la subclase **Driver**, pudimos modificar las caracteristicas y usar los comportamientos de la superclase desde la subclase ó clase hija y si te fijaste bien, modificamos el ***id*** del **conductor1** y lo imprimimos pero. . . crees que eso está bien? es decir, deberíamos poder modificar cosas tan delicadas como el identificador único de cada objeto desde ese objeto de la clase hija?. . .
+Como vimos en el ejemplo anterior de la superclase **Account** y la subclase **Driver**, pudimos modificar las caracteristicas y usar los comportamientos de la superclase desde la subclase ó clase hija y si te fijaste bien, modificamos el ***documento*** del **conductor1** dos veces y lo imprimimos pero. . . crees que eso está bien? es decir, deberíamos poder modificar cosas tan delicadas como el documento de un conductor varias veces sin problemas?. . .
 
-No crees que un perfecto ejemplo de eso es tu número de identificación en la vida real?, no puedes modificarlo aúnque quisieras cierto?, te define y es una caracteristica que posees, pero no puedes acceder a el y modificarlo como te plazca, **BUENO** así mismo es en este caso, el atributo ***id*** es una caracteristica heredada hacia **Driver** pero, este no debería poder modificarlo a sus anchas.
+No crees que un perfecto ejemplo de eso es tu número de identificación en la vida real?, no puedes modificarlo aúnque quisieras cierto?, te define y es una caracteristica que posees, pero no puedes acceder a el y modificarlo como te plazca desde que te lo asignan, **BUENO** así mismo es en este caso, el atributo ***documento*** es una caracteristica heredada hacia **Driver** pero, este no debería poder modificarlo a sus anchas.
 
 Teniendo claro esto veamos el concepto de **Encapsulamiento**:
 
-El encapsulamiento es en esencia hacer que un dato sea inviolable, inalterable cuando se le asigne un modificador de acceso.
+El encapsulamiento es en esencia hacer que un dato sea inviolable, inalterable cuando se le asigne un modificador de acceso o al menos deberíamos poder validarle.
 
 - No se trata solo de ocultarlo, sinó de protegerlo.
 
@@ -373,3 +373,111 @@ cada uno de ellos tiene un nivel de acceso a los datos:
 - **private** es el más reestrictivo y solo nos deja acceder desde la misma clase.
 
 con los modificadores de acceso podemos ocultar o proteger caracteristicas, comportamientos o incluso clases.
+
+***Veamoslo con el ejemplo de Account un poco más claro***
+
+*modifiquemos la clase **Account***
+```Java
+    class Account{
+        Integer id;
+        String name;
+        private String document;
+        String email;
+        String password;
+
+        public Account(String name, String document){
+            this.name = name;
+            this.document = document;
+        }
+```
+
+esta vez le colocamos el modificador de acceso **private** al atributo ***document*** para que solo sea modificable en la clase, veamos que pasa si intentamos modificar el documento:
+
+```Java
+    Driver conductor1 = new Driver("Dylan","2345ABC");
+    conductor.document = "1234ZXC";
+    conductor1.hacerLogin();
+    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.document);
+
+    /*
+    EN LA SALIDA TENDRÍAMOS EL ERROR
+        The field Account.document is not visible
+    */
+```
+
+nos arroja que el campo **Account.document** no es visible para la clase main, esto es por el modificador de acceso, si quisieramos acceder a este documento y modificarlo, tendríamos que crear un setter y un getter para poder obtener este dato, estos son metodos para acceder a un atributo desde una clase hija a una clase padre.
+
+Para esto en la clase **Account** modificamos un poco el constructor de esta manera:
+
+```Java
+    public Account(String name, String document){
+            this.name = name;
+            this.setDocument(document);
+    }
+```
+
+cambiando el **this.document** a **this.setDocument(document)** para que cuando se mande un parametro se invoque el setter del atributo **document** y acto seguido creamos los setters y getters:
+
+```Java
+    public String getDocument() {
+            return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+```
+
+de esta manera para acceder a ellos simplemente lo hacemos por esos métodos:
+
+```Java
+    Driver conductor1 = new Driver("Dylan", "2345ABC");
+    conductor1.setDocument("1234ZXC");
+    conductor1.hacerLogin();
+    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.getDocument());
+
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el conductor: Dylan con el documento: 1234ZXC
+    */
+```
+
+y bueno ahora tu dirás **"Pero, acaso eso no es lo mismo que hacer el atributo público? no estámos haciendo nada"**, y no ya verás por que.
+
+Si estamos haciendo accesible el atributo **document** por medio de los setters y getter pero, almenos ahora podemos validarlos y modificarlo segun la condición que queramos, **MIREMOS**:
+
+*modificaremos un poco el método **setDocument***
+
+```Java
+    public void setDocument(String document) {
+        if(this.document == null){
+            this.document = document;
+        }else{
+            System.out.println("El documento de "+this.name+" solo puede modificarse una vez");
+        }
+    }
+```
+
+aquí estamos validando si el **documento** estába en ***null*** pues lo modificamos, pero... si el documento ya existe pues no lo dejamos modificar y lanzamos un mensaje diciendo que no puede modificarse más de una vez, así cuando lo intentamos modificar nos salta el mensaje:
+
+```Java
+    Driver conductor1 = new Driver("Dylan", "2345ABC");
+    conductor1.setDocument("1234ZXC");
+    conductor1.hacerLogin();//Invocamos el método login
+    System.out.println("\nSoy el conductor: " + conductor1.name + " con el documento: " + conductor1.getDocument());
+
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        El documento de Dylan solo puede modificarse una vez
+        Ingrese!
+        Soy el conductor: Dylan con el documento: 2345ABC
+    */
+```
+
+ves la función del encapsulamiento? ahora estamos validando nuestro atributo y no permitimos modificarlo a sus anchas, esto es **Encapsulamiento** en escencia :D.
+
+---
+
+## Polimorfismo
+
