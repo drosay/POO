@@ -481,3 +481,108 @@ ves la función del encapsulamiento? ahora estamos validando nuestro atributo y 
 
 ## Polimorfismo
 
+Hasta ahora hemos visto como más de una clase heredan métodos y atributos de otra clase padre y como validar cuando estas intentan modificar ciertos atributos, ahora vamos a hacer una pequeña modificación al código de **Account**, más espesificamente al método de **hacerLogin()**:
+
+```Java
+    public void hacerLogin(){
+        System.out.print("Ingrese!\nSoy el usuario: " + this.name + " con el documento: " + this.document+"\ny soy una cuenta normal");
+    }
+```
+
+ahora, solo tenemos que invocar el método **hacerLogin()** para imprimir la información de inicio de sesión, ya sea desde la subclase **User** o **Driver**:
+
+```Java
+    User usuario1 = new User("Daniel", "1234ZXC");
+    usuario1.hacerLogin();//Invocamos el método login
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el usuario: Daniel con el documento: 1234ZXC
+        y soy una cuenta normal
+    */
+```
+```Java
+    Driver conductor1 = new Driver("Dylan", "2345ABC");
+    conductor1.hacerLogin();//Invocamos el método login
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el usuario: Dylan con el documento: 2345ABC
+        y soy una cuenta normal
+    */
+```
+**BIEN** vemos como ambos ahora usan el metodo **hacerLogin()** y muestran sus datos de inicio de sesion, pero... no notas algo extraño?...
+si creamos un nuevo **User** nos imprime que es una cuenta normal, vale esto está bien pero, si creamos un nuevo **Driver** nos dice lo mismo, y eso no está bien, **Driver** es un conductor, no una cuenta normal, tenemos que cambiar eso.
+
+Ahí es donde entra el **Polimorfismo**, y esto se refiere básicamente a "Muchas formas" es decir, un cuadrado y un circulo son formas, pero se dibujan de manera diferente no? bueno, el Polimorfismo nos permite hacer que las clases usen un método con un mismo nombre, pero con un comportamiento diferente:
+
+- Muchas formas
+- Construir métodos con el mismo nombre pero con comportamiento diferente
+
+*veamoslo con el mismo ejemplo, vamos a la clase **Driver** y modifiquemos un poco su código*
+
+```Java
+    class Driver extends Account{
+        public Driver(String name, String document){
+            super(name, document);
+        }
+
+        @Override //ESTO SIGNIFICA QUE ESTAMOS SOBREESCRIBIENDO EL MÉTODO
+        public void hacerLogin() {
+            super.hacerLogin();
+        }    
+    }
+```
+
+vemos que de estamos agregando el método **hacerLogin()** a la clase **Driver**, dentro tenemos un ***super*.hacerLogin()**, si lo dejamos de esta manera hará lo mismo, imprimirá que es un usuario normal, así que vamos a modificar esto un poco:
+
+```Java
+    @Override //ESTO SIGNIFICA QUE ESTAMOS SOBREESCRIBIENDO EL MÉTODO
+    public void hacerLogin() {
+        System.out.print("Ingrese!\nSoy el usuario: " + this.name + " con el documento: " + this.getDocument()+"\ny soy una cuenta de conductor");
+    } 
+```
+
+**BIEN!** hemos sobreescrito el método de **hacerLogin()** para la clase **Driver** y ahora tiene un comportamiento diferente, entonces si hacemos lo mismo que al inicio tendremos ahora un resultado más correcto:
+
+
+```Java
+    User usuario1 = new User("Daniel", "1234ZXC");
+    usuario1.hacerLogin();//Invocamos el método login
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el usuario: Daniel con el documento: 1234ZXC
+        y soy una cuenta normal
+    */
+```
+```Java
+    Driver conductor1 = new Driver("Dylan", "2345ABC");
+    conductor1.hacerLogin();//Invocamos el método login
+    /*
+    EN LA SALIDA TENDRÍAMOS
+        Ingrese!
+        Soy el usuario: Dylan con el documento: 2345ABC
+        y soy una cuenta de conductor
+    */
+```
+
+Esto es **Polimorfismo** en escencia, hacemos uso de un método con el mismo nombre en ambas clases, pero tienen un comportamiento diferente!
+
+En terminos simples para que entiendas el concepto:
+> **Polimorfismo** es cambiar la estructura o comportamiento de un método de una clase padre para que las hijas puedan utilizarlo de la manera que se ajuste a ellas.
+
+---
+
+## Conclusiones
+
+Si has leido todo esto meticulosamente y lo has entendido, enhora buena, ya deberías saber los conceptos básicos de POO, ahora te resta implementarlo y practicarlo.
+
+### Fuentes
+- Yo mismo
+- Platzi
+- Otros cursos en youtube
+
+---
+
+# CHAO PESCAO 😊
