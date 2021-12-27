@@ -19,7 +19,7 @@ La programación orientada a objetos va a tener **Clases** y ellas se van a comp
 
 *Sigamos*
 
-Además de estos 4 pilares vamos a ver conceptos importantes como:
+Además de estos 4 elementos fundamentales vamos a ver pilares importantes como:
 
 - Abstracción
 - Herencia
@@ -28,7 +28,7 @@ Además de estos 4 pilares vamos a ver conceptos importantes como:
 
 y si, suenan un poco intimidantes, pero son más sencillas de lo que parecen, por ahora: 
 
-> Palabras más, palabra menos, la programación orientada a objetos es una forma de pensar para resolver problemas que tiene esos 4 pilares que vimos y que tiene esos 4 elementos y. . . y. . ., y ya. Sigamos. . .
+> Palabras más, palabra menos, la programación orientada a objetos es una forma de pensar para resolver problemas que tiene esos 4 elementos fundamentales que vimos y que tiene esos 4 pilares y. . . y. . ., y ya. Sigamos. . .
 
 ---
 
